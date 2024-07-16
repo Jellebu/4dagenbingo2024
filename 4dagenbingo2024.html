@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vierdaagse van Nijmegen Bingo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .bingo-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .bingo-item {
+            background: #ffcc00;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s;
+        }
+        .bingo-item.checked {
+            background: #4caf50;
+            color: white;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div class="bingo-container">
+        <div class="bingo-item">Zonnebrand vergeten</div>
+        <div class="bingo-item">Heeee morgen pas hè</div>
+        <div class="bingo-item">Zonnebril vergeten</div>
+        <div class="bingo-item">Hangry</div>
+        <div class="bingo-item">Boomer die andere wandelaars de pas afsnijdt</div>
+        <div class="bingo-item">Je hoort de 'engelbewaarder'</div>
+        <div class="bingo-item">Natgespoten worden met een waterpistool</div>
+        <div class="bingo-item">Je komt Anne tegen</div>
+        <div class="bingo-item">Iemand die dag 1 al met zijn kruisje loopt</div>
+        <div class="bingo-item">Struikelen over je eigen voeten</div>
+        <div class="bingo-item">Opstartproblemen</div>
+        <div class="bingo-item">Komkommers gekregen van een lokale bewoner</div>
+        <div class="bingo-item">Sticker van een militair gekregen</div>
+        <div class="bingo-item">Op iemand hakken gaan staan</div>
+        <div class="bingo-item">Met samengeknepen billen wachten op het toilet</div>
+        <div class="bingo-item">Buienradar had het weer eens mis</div>
+        <div class="bingo-item">Misselijk gegeten</div>
+        <div class="bingo-item">In de bosjes geplast</div>
+        <div class="bingo-item">Binnen 2 kilometer al moeten poepen</div>
+        <div class="bingo-item">Op de 11,1km moeten poepen</div>
+        <div class="bingo-item">Een shotje om 05:30 uur</div>
+        <div class="bingo-item">In de rij staan bij een woonhuis om te plassen</div>
+        <div class="bingo-item">Poepen op een dixie</div>
+        <div class="bingo-item">Biertje op het Faberplein</div>
+        <div class="bingo-item">Telefoonnummer gescoord van een leuke militair</div>
+        <div class="bingo-item">The wave doen met mensen langs de kant</div>
+        <div class="bingo-item">Je eet een snelle Jelle ontbijtkoek</div>
+        <div class="bingo-item">Je maakt een selfie met (een) Jelle tijdens de vierdaagse</div>
+        <div class="bingo-item">Je wordt geïnterviewd door een verslaggever</div>
+        <div class="bingo-item">Je spot een BN'er (Bekende Nijmegenaar) = selfie</div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.bingo-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('checked');
+                saveState();
+            });
+        });
+
+        function saveState() {
+            const items = document.querySelectorAll('.bingo-item');
+            const state = Array.from(items).map(item => item.classList.contains('checked'));
+            localStorage.setItem('bingoState', JSON.stringify(state));
+        }
+
+        function loadState() {
+            const state = JSON.parse(localStorage.getItem('bingoState'));
+            if (state) {
+                const items = document.querySelectorAll('.bingo-item');
+                items.forEach((item, index) => {
+                    if (state[index]) {
+                        item.classList.add('checked');
+                    }
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadState);
+    </script>
+</body>
+</html>
